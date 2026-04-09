@@ -1,0 +1,52 @@
+---
+description: C# naming conventions and control-flow style for this project
+globs: **/*.cs
+alwaysApply: false
+---
+
+# C# Naming Conventions
+
+## All members use PascalCase — no underscore prefix
+
+```csharp
+// ❌ BAD
+private float _speed;
+private Rigidbody _rb;
+
+// ✅ GOOD
+private float Speed;
+private Rigidbody Rb;
+```
+
+## All methods use PascalCase (public and private)
+
+```csharp
+// ❌ BAD
+private void handleMovement() { }
+public void snapToGrid() { }
+
+// ✅ GOOD
+private void HandleMovement() { }
+public void SnapToGrid() { }
+```
+
+## Braces on every clause — no single-line bodies
+
+All control-flow statements (`if`, `else`, `for`, `foreach`, `while`, `do`, `switch`) must use `{ }`, even for a single line.
+
+```csharp
+// ❌ BAD
+if (kb == null) return;
+if (Head == null) Head = transform;
+
+// ✅ GOOD
+if (kb == null)
+{
+    return;
+}
+
+if (Head == null)
+{
+    Head = transform;
+}
+```
