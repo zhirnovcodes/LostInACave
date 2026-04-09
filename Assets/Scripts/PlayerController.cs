@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Rotation Limits  x = min  y = max")]
     public Vector2 PitchLimit = new Vector2(-80f, 80f);
-    public Vector2 YawLimit   = new Vector2(-360f, 360f);
     public Vector2 RollLimit  = new Vector2(0f, 0f);
 
     private Rigidbody Rb;
@@ -87,7 +86,7 @@ public class PlayerController : MonoBehaviour
         float mouseX  = delta.x * MouseSensitivity * 0.1f;
         float mouseY  = delta.y * MouseSensitivity * 0.1f;
 
-        Yaw   = Mathf.Clamp(Yaw + mouseX, YawLimit.x, YawLimit.y);
+        Yaw   = Yaw + mouseX;
         Pitch = Mathf.Clamp(Pitch - mouseY, PitchLimit.x, PitchLimit.y);
         Roll  = Mathf.Clamp(Roll, RollLimit.x, RollLimit.y);
 
