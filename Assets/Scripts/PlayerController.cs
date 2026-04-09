@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
-    public float MoveSpeed = 5f;
+    public Vector2 MoveSpeed = new Vector2(1f, 1.5f);
 
     [Header("Mouse Look")]
     public Transform Head;
@@ -63,11 +63,14 @@ public class PlayerController : MonoBehaviour
 
         float h = (kb.dKey.isPressed ? 1f : 0f) - (kb.aKey.isPressed ? 1f : 0f);
         float v = (kb.wKey.isPressed ? 1f : 0f) - (kb.sKey.isPressed ? 1f : 0f);
+        float s = (kb.leftShiftKey.isPressed ? 1f : 0f);
 
         Vector3 moveDir = transform.right * h + transform.forward * v;
         moveDir = Vector3.ClampMagnitude(moveDir, 1f);
 
-        Vector3 targetVelocity = moveDir * MoveSpeed;
+        var speed = Mathf.Lerp(MoveSpeed.x, MoveSpeed.y, s);
+
+        Vector3 targetVelocity = moveDir * speed;
         targetVelocity.y       = Rb.linearVelocity.y;
         Rb.linearVelocity      = targetVelocity;
     }
