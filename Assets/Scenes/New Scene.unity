@@ -12091,7 +12091,9 @@ GameObject:
   - component: {fileID: 696044923}
   - component: {fileID: 696044922}
   - component: {fileID: 696044921}
-  m_Layer: 0
+  - component: {fileID: 696044927}
+  - component: {fileID: 696044928}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12241,6 +12243,36 @@ Transform:
   - {fileID: 2088471687}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &696044927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696044920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 761f880deef3a9241a2a7a3d44c585fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LostPlayerController
+  PhoneModel: {fileID: 1450715127}
+  PlayerModel: {fileID: 696044928}
+  MoveController: {fileID: 696044921}
+--- !u!114 &696044928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696044920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a903c49fc579041bee595d7595f7a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LostPlayerModel
+  Data:
+    IsAlive: 1
+    IsMovingEnabled: 1
 --- !u!64 &699759609 stripped
 MeshCollider:
   m_CorrespondingSourceObject: {fileID: 4265203753882926177, guid: dc3a36461d35a0f43ae26e30b91e722a, type: 3}
@@ -25264,7 +25296,7 @@ GameObject:
   - component: {fileID: 1450715127}
   - component: {fileID: 1450715129}
   - component: {fileID: 1450715128}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Phone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

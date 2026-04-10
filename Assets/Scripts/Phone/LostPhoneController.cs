@@ -227,8 +227,6 @@ public class LostPhoneController : MonoBehaviour
             return;
         }
 
-        var keyboard = Keyboard.current;
-
         if (HadControl(Settings.FlashlightKey))
         {
             PhoneModel.ToggleFlashLight();
