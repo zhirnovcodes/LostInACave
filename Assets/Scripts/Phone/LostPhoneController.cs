@@ -26,11 +26,30 @@ public class LostPhoneController : MonoBehaviour
     private void Update()
     {
         UpdateHUD();
+        UpdateNetwork();
         UpdateMessages();
         UpdateDialogue();
         UpdateTextBox();
         UpdateFlashlight();
         UpdateBattery();
+    }
+
+    private void UpdateNetwork()
+    {
+        var hits = Physics.OverlapSphere(transform.position, 0.2f, LayerMask.GetMask("Network"), QueryTriggerInteraction.Collide);
+
+        if (hits.Length == 0)
+        {
+            PhoneModel.SetNetworkLevel(0);
+            return;
+        }
+
+        SphereCollider zone = hits[0].GetComponent<SphereCollider>();
+        float radius = zone.radius * zone.transform.lossyScale.x;
+        float distance = Vector3.Distance(transform.position, zone.transform.TransformPoint(zone.center));
+        float t = distance / radius;
+        int networkValue = Mathf.RoundToInt((1f - t) * 4f);
+        PhoneModel.SetNetworkLevel(Mathf.Clamp(networkValue, 0, 4));
     }
 
     private void UpdateHUD()
