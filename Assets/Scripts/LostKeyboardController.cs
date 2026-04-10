@@ -2,10 +2,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+public class LostKeyboardController : MonoBehaviour
 {
     [Header("Movement")]
     public Vector2 MoveSpeed = new Vector2(1f, 1.5f);
+    public bool IsMovingEnabled = true;
 
     [Header("Mouse Look")]
     public Transform Head;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float Pitch = 0f;
     private float Yaw   = 0f;
     private float Roll  = 0f;
+
 
     private void Awake()
     {
@@ -54,11 +56,12 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        var kb = Keyboard.current;
-        if (kb == null)
+        if (IsMovingEnabled == false)
         {
             return;
         }
+
+        var kb = Keyboard.current;
 
         float h = (kb.dKey.isPressed ? 1f : 0f) - (kb.aKey.isPressed ? 1f : 0f);
         float v = (kb.wKey.isPressed ? 1f : 0f) - (kb.sKey.isPressed ? 1f : 0f);

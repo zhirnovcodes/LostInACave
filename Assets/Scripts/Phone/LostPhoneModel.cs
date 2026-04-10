@@ -18,6 +18,16 @@ public class LostPhoneModel : MonoBehaviour
         Data.IsPhoneOn = false;
     }
 
+    public void DisableControl()
+    {
+        Data.IsControlEnabled = false;
+    }
+
+    public bool IsControlEnabled()
+    {
+        return Data.IsControlEnabled;
+    }
+
     public void ToggleFlashLight()
     {
         Data.IsFlashLightOn = !Data.IsFlashLightOn;

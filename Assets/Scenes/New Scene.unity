@@ -12111,6 +12111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   MoveSpeed: {x: 1, y: 2}
+  IsMovingEnabled: 0
   Head: {fileID: 1941543339}
   Arm: {fileID: 2088471687}
   MouseSensitivity: 2
@@ -25301,6 +25302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LostPhoneModel
   Data:
     IsPhoneOn: 1
+    IsControlEnabled: 1
     IsFlashLightOn: 1
     BatteryValue: 100
     NetworkQuality: 2

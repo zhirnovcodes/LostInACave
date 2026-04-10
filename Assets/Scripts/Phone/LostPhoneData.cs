@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public struct LostPhoneData
 {
     public bool IsPhoneOn;
+    public bool IsControlEnabled;
     public bool IsFlashLightOn;
     public float BatteryValue;    // 0–100
     public int NetworkQuality;    // 0–4

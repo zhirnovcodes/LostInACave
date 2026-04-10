@@ -96,7 +96,7 @@ public class LostPhoneController : MonoBehaviour
 
         var keyboard = Keyboard.current;
 
-        if (keyboard[Settings.WriteNewMessageKey].wasPressedThisFrame)
+        if (HadControl(Settings.WriteNewMessageKey))
         {
             PhoneModel.ToggleTypingEnabled();
         }
@@ -147,7 +147,7 @@ public class LostPhoneController : MonoBehaviour
         var canSendMessage = PhoneModel.GetNetworkLevel() > 0 &&
             PhoneModel.IsWaitingMessage(Settings.MessageSendInterval) == false;
 
-        var sendKeyPressed = keyboard[Settings.SendMessageKey].wasPressedThisFrame;
+        var sendKeyPressed = HadControl(Settings.SendMessageKey);
 
         if (canSendMessage)
         {
@@ -173,7 +173,7 @@ public class LostPhoneController : MonoBehaviour
             }
         }
 
-        if (keyboard[Settings.QuitWritingKey].wasPressedThisFrame)
+        if (HadControl(Settings.QuitWritingKey))
         {
             PhoneModel.ToggleTypingEnabled();
             UpdateMessageLabels();
@@ -229,7 +229,7 @@ public class LostPhoneController : MonoBehaviour
 
         var keyboard = Keyboard.current;
 
-        if (keyboard[Settings.FlashlightKey].wasPressedThisFrame)
+        if (HadControl(Settings.FlashlightKey))
         {
             PhoneModel.ToggleFlashLight();
         }
@@ -264,5 +264,17 @@ public class LostPhoneController : MonoBehaviour
         UIView.MessageBoxElement.SetTypingDisabled();
         UIView.Content.SetActive(false);
         enabled = false;
+    }
+
+
+    private bool HadControl(Key key)
+    {
+        if (PhoneModel.IsControlEnabled())
+        {
+            var keyboard = Keyboard.current;
+            return keyboard[Settings.SendMessageKey].wasPressedThisFrame;
+        }
+
+        return false;
     }
 }
