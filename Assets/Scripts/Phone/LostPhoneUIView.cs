@@ -14,6 +14,7 @@ public class LostPhoneUIView : MonoBehaviour
     public GameObject HasNetworkGroup;
     public GameObject NoNetworkGroup;
     public GameObject WaitingGroup;
+    public GameObject InstructionsGroup;
 
     [Header("Content")]
     public GameObject Content;

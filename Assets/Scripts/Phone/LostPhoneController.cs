@@ -15,6 +15,12 @@ public class LostPhoneController : MonoBehaviour
     private void Awake()
     {
         MessageBuffer = new List<PhoneMessage>();
+
+        PhoneModel.AddToMessagesBuffer(new PhoneMessage
+        {
+            SenderType = SenderType.Operator,
+            Message = Settings.IntroductionMessage
+        }) ;
     }
 
     private void Update()
@@ -129,14 +135,21 @@ public class LostPhoneController : MonoBehaviour
             if (sendKeyPressed)
             {
                 string text = UIView.MessageBoxElement.GetText();
+
                 float drain = Settings.MessageSendBatteryDrain + GetBatteryDrain(text);
                 PhoneModel.SetBatteryLevel(PhoneModel.GetBatteryLevel() - drain);
+                
                 var message = new PhoneMessage { SenderType = SenderType.Lost, Message = text };
+                
                 NetModel.SendMessage(message);
+                
                 PhoneModel.RecordMessageSent();
+                
                 UIView.MessageBoxElement.Clear();
                 UIView.MessageBoxElement.Activate();
-                PhoneModel.AddToMessagesBuffer(message);
+
+                UIView.DialogueBoxElement.AddMessage(message);
+                UIView.DialogueBoxElement.ScrollToBottom();
                 return;
             }
         }
@@ -159,6 +172,7 @@ public class LostPhoneController : MonoBehaviour
         {
             UIView.HasNetworkGroup.SetActive(false);
             UIView.NoNetworkGroup.SetActive(false);
+            UIView.InstructionsGroup.SetActive(true);
             UIView.WaitingGroup.SetActive(false);
             return;
         }
@@ -168,6 +182,7 @@ public class LostPhoneController : MonoBehaviour
             UIView.HasNetworkGroup.SetActive(false);
             UIView.NoNetworkGroup.SetActive(true);
             UIView.WaitingGroup.SetActive(false);
+            UIView.InstructionsGroup.SetActive(false);
             return;
         }
 
@@ -176,12 +191,14 @@ public class LostPhoneController : MonoBehaviour
             UIView.HasNetworkGroup.SetActive(false);
             UIView.NoNetworkGroup.SetActive(false);
             UIView.WaitingGroup.SetActive(true);
+            UIView.InstructionsGroup.SetActive(false);
             return;
         }
 
         UIView.HasNetworkGroup.SetActive(true);
         UIView.NoNetworkGroup.SetActive(false);
         UIView.WaitingGroup.SetActive(false);
+        UIView.InstructionsGroup.SetActive(false);
     }
 
     private void UpdateFlashlight()

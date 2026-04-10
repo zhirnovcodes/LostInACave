@@ -19,4 +19,7 @@ public class PhoneSettings : ScriptableObject
     public Key SendMessageKey;
     public Key QuitWritingKey;
     public Key FlashlightKey;
+
+    [Header("Totorial")]
+    public string IntroductionMessage;
 }

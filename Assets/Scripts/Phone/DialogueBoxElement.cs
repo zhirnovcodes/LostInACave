@@ -85,4 +85,10 @@ public class DialogueBoxElement : MonoBehaviour
             OperatorTextField.text = selected.ToString();
         }
     }
+
+    public void ScrollToBottom()
+    {
+        SelectedMessageIndex = Messages.Count - 1;
+        RefreshView();
+    }
 }

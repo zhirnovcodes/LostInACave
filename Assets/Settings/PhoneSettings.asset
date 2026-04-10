@@ -18,7 +18,8 @@ MonoBehaviour:
   MessageRecievedBatteryDrain: 1
   MessagePerSymbolDrain: 0.1
   MessageSendInterval: 1
-  WriteNewMessageKey: 33
+  WriteNewMessageKey: 27
   SendMessageKey: 2
   QuitWritingKey: 60
   FlashlightKey: 20
+  IntroductionMessage: Hi bitch

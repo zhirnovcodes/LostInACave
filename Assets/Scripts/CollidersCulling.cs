@@ -109,7 +109,6 @@ public class CollidersCulling : MonoBehaviour
 
                 foreach (Collider collider in cellColliders)
                 {
-                    UnityEngine.Debug.Log($"Enabling collider: {collider.name}");
                     collider.enabled = true;
                 }
             }
