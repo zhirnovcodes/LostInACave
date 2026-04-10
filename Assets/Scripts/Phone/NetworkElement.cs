@@ -12,7 +12,7 @@ public class NetworkElement : MonoBehaviour
 
         for (int i = 0; i < LevelImages.Length; i++)
         {
-            LevelImages[i].enabled = i == level - 1;
+            LevelImages[i].enabled = i <= level - 1;
         }
     }
 }

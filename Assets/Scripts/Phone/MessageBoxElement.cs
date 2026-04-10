@@ -7,7 +7,16 @@ public class MessageBoxElement : MonoBehaviour
 
     public void SetTypingEnabled()
     {
-        RichTextField.interactable = true;
+        if (RichTextField.interactable == false)
+        {
+            RichTextField.interactable = true;
+            RichTextField.ActivateInputField();
+        }
+    }
+
+    public void Activate()
+    {
+        RichTextField.ActivateInputField();
     }
 
     public void SetTypingDisabled()

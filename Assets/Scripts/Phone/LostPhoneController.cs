@@ -1,0 +1,232 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class LostPhoneController : MonoBehaviour
+{
+    public LostPhoneUIView UIView;
+    public LostPhoneSceneView SceneView;
+    public PhoneSettings Settings;
+    public NetModelBase NetModel;
+    public LostPhoneModel PhoneModel;
+
+    private List<PhoneMessage> MessageBuffer;
+
+    private void Awake()
+    {
+        MessageBuffer = new List<PhoneMessage>();
+    }
+
+    private void Update()
+    {
+        UpdateHUD();
+        UpdateMessages();
+        UpdateDialogue();
+        UpdateTextBox();
+        UpdateFlashlight();
+        UpdateBattery();
+    }
+
+    private void UpdateHUD()
+    {
+        UIView.BatteryElement.SetLevel(PhoneModel.GetBatteryLevel());
+        UIView.NetworkElement.SetLevel(PhoneModel.GetNetworkLevel());
+        UIView.NewMessageImage.enabled = PhoneModel.HasUnreadMessages();
+
+        if (PhoneModel.HasUnreadMessages() && UIView.DialogueBoxElement.IsAtBottom())
+        {
+            PhoneModel.SetNewMessagesRead();
+        }
+    }
+
+    private void UpdateMessages()
+    {
+        if (PhoneModel.GetNetworkLevel() <= 0)
+        {
+            return;
+        }
+
+        float drain = 0;
+
+        if (NetModel.ReceivedMessages(MessageBuffer))
+        {
+            drain += Settings.MessageRecievedBatteryDrain;
+
+            foreach (PhoneMessage message in MessageBuffer)
+            {
+                PhoneModel.AddToMessagesBuffer(message);
+                drain += GetBatteryDrain(message.Message);
+            }
+        }
+
+        PhoneModel.SetBatteryLevel(PhoneModel.GetBatteryLevel() - drain);
+    }
+
+    private void UpdateDialogue()
+    {
+        if (PhoneModel.IsTypingEnabled())
+        {
+            return;
+        }
+
+        var keyboard = Keyboard.current;
+
+        if (keyboard[Settings.WriteNewMessageKey].wasPressedThisFrame)
+        {
+            PhoneModel.ToggleTypingEnabled();
+        }
+
+        UpdateMessageLabels();
+
+        if (PhoneModel.IsTypingEnabled())
+        {
+            UIView.DialogueBoxElement.SetScrollingDisabled();
+            return;
+        }
+
+        UIView.DialogueBoxElement.SetScrollingEnabled();
+
+        if (UIView.DialogueBoxElement.IsAtBottom())
+        {
+            PhoneModel.SetNewMessagesRead();
+        }
+
+        if (PhoneModel.GetNetworkLevel() > 0)
+        {
+            MessageBuffer.Clear();
+
+            if (PhoneModel.DrainMessagesBuffer(MessageBuffer))
+            {
+                foreach (PhoneMessage message in MessageBuffer)
+                {
+                    UIView.DialogueBoxElement.AddMessage(message);
+                }
+            }
+        }
+    }
+
+    private void UpdateTextBox()
+    {
+        if (PhoneModel.IsTypingEnabled() == false)
+        {
+            UIView.MessageBoxElement.SetTypingDisabled();
+            return;
+        }
+
+        UIView.MessageBoxElement.SetTypingEnabled();
+
+        var keyboard = Keyboard.current;
+
+        UpdateMessageLabels();
+
+        var canSendMessage = PhoneModel.GetNetworkLevel() > 0 &&
+            PhoneModel.IsWaitingMessage(Settings.MessageSendInterval) == false;
+
+        var sendKeyPressed = keyboard[Settings.SendMessageKey].wasPressedThisFrame;
+
+        if (canSendMessage)
+        {
+            if (sendKeyPressed)
+            {
+                string text = UIView.MessageBoxElement.GetText();
+                float drain = Settings.MessageSendBatteryDrain + GetBatteryDrain(text);
+                PhoneModel.SetBatteryLevel(PhoneModel.GetBatteryLevel() - drain);
+                var message = new PhoneMessage { SenderType = SenderType.Lost, Message = text };
+                NetModel.SendMessage(message);
+                PhoneModel.RecordMessageSent();
+                UIView.MessageBoxElement.Clear();
+                UIView.MessageBoxElement.Activate();
+                PhoneModel.AddToMessagesBuffer(message);
+                return;
+            }
+        }
+
+        if (keyboard[Settings.QuitWritingKey].wasPressedThisFrame)
+        {
+            PhoneModel.ToggleTypingEnabled();
+            UpdateMessageLabels();
+        }
+    }
+
+    private float GetBatteryDrain(string text)
+    {
+        return text.Length * Settings.MessagePerSymbolDrain;
+    }
+
+    private void UpdateMessageLabels()
+    {
+        if (PhoneModel.IsTypingEnabled() == false)
+        {
+            UIView.HasNetworkGroup.SetActive(false);
+            UIView.NoNetworkGroup.SetActive(false);
+            UIView.WaitingGroup.SetActive(false);
+            return;
+        }
+
+        if (PhoneModel.GetNetworkLevel() <= 0)
+        {
+            UIView.HasNetworkGroup.SetActive(false);
+            UIView.NoNetworkGroup.SetActive(true);
+            UIView.WaitingGroup.SetActive(false);
+            return;
+        }
+
+        if (PhoneModel.IsWaitingMessage(Settings.MessageSendInterval))
+        {
+            UIView.HasNetworkGroup.SetActive(false);
+            UIView.NoNetworkGroup.SetActive(false);
+            UIView.WaitingGroup.SetActive(true);
+            return;
+        }
+
+        UIView.HasNetworkGroup.SetActive(true);
+        UIView.NoNetworkGroup.SetActive(false);
+        UIView.WaitingGroup.SetActive(false);
+    }
+
+    private void UpdateFlashlight()
+    {
+        if (PhoneModel.IsTypingEnabled())
+        {
+            return;
+        }
+
+        var keyboard = Keyboard.current;
+
+        if (keyboard[Settings.FlashlightKey].wasPressedThisFrame)
+        {
+            PhoneModel.ToggleFlashLight();
+        }
+
+        SceneView.FlashLight.SetActive(PhoneModel.IsFlashOn);
+
+        if (PhoneModel.IsFlashOn)
+        {
+            PhoneModel.SetBatteryLevel(PhoneModel.GetBatteryLevel() - Settings.FlashLightBatteryDrain * Time.deltaTime);
+        }
+
+    }
+
+    private void UpdateBattery()
+    {
+        PhoneModel.SetBatteryLevel(PhoneModel.GetBatteryLevel() - Settings.PassiveBatteryDrain * Time.deltaTime);
+
+        if (PhoneModel.GetBatteryLevel() > 0)
+        {
+            return;
+        }
+
+        PhoneModel.TurnOff();
+
+        if (PhoneModel.IsFlashOn)
+        {
+            PhoneModel.ToggleFlashLight();
+        }
+
+        SceneView.FlashLight.SetActive(false);
+        SceneView.ScreenLight.SetActive(false);
+        UIView.MessageBoxElement.SetTypingDisabled();
+        UIView.Content.SetActive(false);
+        enabled = false;
+    }
+}

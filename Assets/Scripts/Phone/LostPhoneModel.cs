@@ -1,13 +1,16 @@
-using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class LostPhoneModel
+public class LostPhoneModel : MonoBehaviour
 {
-    private LostPhoneData Data;
+    [SerializeField] private LostPhoneData Data;
+    public List<PhoneMessage> NewMessagesBuffer = new List<PhoneMessage>();
 
-    public LostPhoneModel()
+    private float LastMessageSendTime = float.NegativeInfinity;
+
+    private void Awake()
     {
-        Data = new LostPhoneData();
+        //Data = new LostPhoneData();
     }
 
     public void TurnOff()
@@ -37,6 +40,16 @@ public class LostPhoneModel
         return Data.NetworkQuality;
     }
 
+    public void RecordMessageSent()
+    {
+        LastMessageSendTime = Time.time;
+    }
+
+    public bool IsWaitingMessage(float interval)
+    {
+        return Time.time - LastMessageSendTime < interval;
+    }
+
     public void SetNetworkLevel(int value)
     {
         Data.NetworkQuality = value;
@@ -44,17 +57,17 @@ public class LostPhoneModel
 
     public void AddToMessagesBuffer(PhoneMessage message)
     {
-        Data.NewMessagesBuffer.Add(message);
+        NewMessagesBuffer.Add(message);
     }
 
     public bool DrainMessagesBuffer(List<PhoneMessage> resultMessages)
     {
-        foreach (PhoneMessage msg in Data.NewMessagesBuffer)
+        foreach (PhoneMessage msg in NewMessagesBuffer)
         {
             resultMessages.Add(msg);
         }
 
-        Data.NewMessagesBuffer.Clear();
+        NewMessagesBuffer.Clear();
 
         if (resultMessages.Count > 0)
         {
@@ -78,5 +91,10 @@ public class LostPhoneModel
     public bool IsTypingEnabled()
     {
         return Data.IsTypingEnabled;
+    }
+
+    public bool HasUnreadMessages()
+    {
+        return Data.HasUnreadMessages;
     }
 }
