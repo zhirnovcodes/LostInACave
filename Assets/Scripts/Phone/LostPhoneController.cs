@@ -272,7 +272,7 @@ public class LostPhoneController : MonoBehaviour
         if (PhoneModel.IsControlEnabled())
         {
             var keyboard = Keyboard.current;
-            return keyboard[Settings.SendMessageKey].wasPressedThisFrame;
+            return keyboard[key].wasPressedThisFrame;
         }
 
         return false;
