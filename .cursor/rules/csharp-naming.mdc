@@ -6,16 +6,36 @@ alwaysApply: false
 
 # C# Naming Conventions
 
-## All members use PascalCase — no underscore prefix
+## Names are full words — 1 to 4 words, no abbreviations or single letters
+
+Names for fields, properties, variables, parameters, and methods must be full English words. Single-letter names and abbreviations are not allowed, except for established loop counters (`i`, `j`) inside a `for` body where the index has no domain meaning.
+
+```csharp
+// ❌ BAD
+private Rigidbody rb;
+private float spd;
+float h = input.x;
+void CalcVel() { }
+
+// ✅ GOOD
+private Rigidbody Body;
+private float Speed;
+float horizontal = input.x;
+void CalculateVelocity() { }
+```
+
+## All members use PascalCase — no underscore prefix. Method members and consts use camelCase
 
 ```csharp
 // ❌ BAD
 private float _speed;
 private Rigidbody _rb;
+float Velociy = _speed;
 
 // ✅ GOOD
 private float Speed;
-private Rigidbody Rb;
+private Rigidbody Rigidbody;
+float velocity = Speed;
 ```
 
 ## All methods use PascalCase (public and private)
@@ -50,3 +70,21 @@ if (Head == null)
     Head = transform;
 }
 ```
+
+## No null checks for object references
+
+Do **not** null-check object references. Assume all objects are correctly assigned and non-null. A `NullReferenceException` is the intended signal when something is misconfigured.
+
+```csharp
+// ❌ BAD
+if (Data == null)
+{
+    return;
+}
+Data.DoSomething();
+
+// ✅ GOOD
+Data.DoSomething();
+```
+
+**Exceptions** — a null check is permitted only when explicitly noted inline with `// null-check: <reason>`.
