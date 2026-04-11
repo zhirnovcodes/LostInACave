@@ -27,7 +27,7 @@ public class InstructionsBookController : MonoBehaviour
         UIView.Pages[CurrentIndex].SetActive(false);
         CurrentIndex = targetIndex;
         UIView.Pages[CurrentIndex].SetActive(true);
-        UIView.CurrentIndexText.text = CurrentIndex.ToString();
+        UIView.CurrentIndexText.text = (CurrentIndex+1).ToString();
     }
 
     private void Close()

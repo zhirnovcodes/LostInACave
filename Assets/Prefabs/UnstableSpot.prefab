@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 212628991902117626}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.12556054, z: 0}
-  m_LocalScale: {x: 0.44843048, y: 0.35874435, z: 0.44843048}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6366131737689983044}
@@ -4865,8 +4865,8 @@ Transform:
   m_GameObject: {fileID: 1722070638353505409}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.41255605, z: 0}
-  m_LocalScale: {x: 0.26457396, y: 0.35874435, z: 0.25112107}
+  m_LocalPosition: {x: 0, y: 1.52, z: 0}
+  m_LocalScale: {x: 0.6, y: 1, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6366131737689983044}
@@ -4993,7 +4993,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 2.23, y: 2.23, z: 2.23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6340545393211850479}
@@ -5019,7 +5019,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2808345300178171596
 MonoBehaviour:
@@ -5036,5 +5036,5 @@ MonoBehaviour:
   FallingBlock: {fileID: 2348865843805622079}
   Particles: {fileID: 212628991902117626}
   StartEarthquakeTime: 5
-  FallBlockTime: 15
+  FallBlockTime: 10
   ShakeRange: 3
