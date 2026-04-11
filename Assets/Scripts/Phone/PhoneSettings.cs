@@ -21,5 +21,6 @@ public class PhoneSettings : ScriptableObject
     public Key FlashlightKey;
 
     [Header("Totorial")]
-    public string IntroductionMessage;
+    public string LostIntroductionMessage;
+    public string OperatorIntroductionMessage;
 }

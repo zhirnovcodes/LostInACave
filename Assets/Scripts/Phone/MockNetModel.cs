@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class MockNetModel : NetModelBase
 {
+    public bool IsConnected;
+    public bool IsDead;
+    public bool IsWon;
+
     private static readonly string[] SampleTexts =
     {
         "Hello, is anyone there?",
@@ -34,7 +38,7 @@ public class MockNetModel : NetModelBase
 
     public override bool HasOpponentConnected()
     {
-        return true;
+        return IsConnected;
     }
 
     public override void SendMessage(PhoneMessage message)
@@ -61,5 +65,20 @@ public class MockNetModel : NetModelBase
     public override void SendDead()
     {
         Debug.Log("[MockNetModel] SendDead");
+    }
+
+    public override bool IsDeadReceived()
+    {
+        return IsDead;
+    }
+
+    public override void SendWon()
+    {
+        Debug.Log("[MockNetModel] SendWon");
+    }
+
+    public override bool IsWonReceived()
+    {
+        return IsWon;
     }
 }

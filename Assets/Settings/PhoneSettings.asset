@@ -22,4 +22,7 @@ MonoBehaviour:
   SendMessageKey: 2
   QuitWritingKey: 60
   FlashlightKey: 20
-  IntroductionMessage: Hi bitch
+  LostIntroductionMessage: 'WASD - walk M - text Enter - send message Up and down
+    to read messages '
+  OperatorIntroductionMessage: + and - zoom map, WASD - search map, M - text, Enter
+    - send message, Up and down - read messages

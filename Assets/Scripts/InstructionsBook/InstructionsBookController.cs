@@ -3,6 +3,7 @@ using UnityEngine;
 public class InstructionsBookController : MonoBehaviour
 {
     public InstructionsBookUIView UIView;
+    public PhoneSettings Settings;
 
     public int CurrentIndex;
 
@@ -15,6 +16,13 @@ public class InstructionsBookController : MonoBehaviour
         }
 
         UIView.CloseButton.onClick.AddListener(Close);
+
+        UIView.Page1Text.text = UIView.Page1Text.text
+            .Replace("<passive_drain>", Settings.PassiveBatteryDrain.ToString())
+            .Replace("<flash_drain>", Settings.FlashLightBatteryDrain.ToString())
+            .Replace("<send_message>", Settings.MessageSendBatteryDrain.ToString())
+            .Replace("<receive_message>", Settings.MessageRecievedBatteryDrain.ToString())
+            .Replace("<per_symbol>", Settings.MessagePerSymbolDrain.ToString());
     }
 
     public void Open()

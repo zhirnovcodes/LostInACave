@@ -12,6 +12,11 @@ public class OperatorPhoneModel : MonoBehaviour
         Data.IsControlEnabled = false;
     }
 
+    public void EnableControl()
+    {
+        Data.IsControlEnabled = true;
+    }
+
     public bool IsControlEnabled()
     {
         return Data.IsControlEnabled;

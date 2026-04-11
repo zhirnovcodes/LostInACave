@@ -10,4 +10,7 @@ public abstract class NetModelBase : MonoBehaviour
 
     public abstract bool ReceivedMessages(List<PhoneMessage> messages);
     public abstract void SendDead();
+    public abstract bool IsDeadReceived();
+    public abstract void SendWon();
+    public abstract bool IsWonReceived();
 }

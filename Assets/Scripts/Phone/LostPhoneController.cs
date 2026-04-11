@@ -19,7 +19,7 @@ public class LostPhoneController : MonoBehaviour
         PhoneModel.AddToMessagesBuffer(new PhoneMessage
         {
             SenderType = SenderType.Operator,
-            Message = Settings.IntroductionMessage
+            Message = Settings.LostIntroductionMessage
         }) ;
     }
 

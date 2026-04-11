@@ -14,6 +14,10 @@ public class OperatorPhoneController : MonoBehaviour
     private void Awake()
     {
         MessageBuffer = new List<PhoneMessage>();
+
+
+        UIView.DialogueBoxElement.AddMessage(new PhoneMessage { SenderType = SenderType.Lost, Message = Settings.OperatorIntroductionMessage });
+        UIView.DialogueBoxElement.AddMessage(new PhoneMessage { SenderType = SenderType.Lost, Message = "SOS" });
     }
 
     private void Update()
