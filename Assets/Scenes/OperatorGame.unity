@@ -5872,6 +5872,10 @@ PrefabInstance:
       propertyPath: NetModel
       value: 
       objectReference: {fileID: 674439778}
+    - target: {fileID: 8401856209646575193, guid: 8a4b9e9bdd2109549abb82d2013ba7bc, type: 3}
+      propertyPath: Data.HasUnreadMessages
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

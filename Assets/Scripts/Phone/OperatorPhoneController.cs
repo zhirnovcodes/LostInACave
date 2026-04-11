@@ -116,6 +116,8 @@ public class OperatorPhoneController : MonoBehaviour
             PhoneModel.ToggleTypingEnabled();
             UpdateMessageLabels();
         }
+
+        UIView.MessageBoxElement.Activate();
     }
 
     private void UpdateMessageLabels()

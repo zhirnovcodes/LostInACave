@@ -22,15 +22,9 @@ public class LostPlayerController : MonoBehaviour
 
     private void UpdateMovement()
     {
-        if (PhoneModel.IsTypingEnabled())
-        {
-            PlayerModel.DisableMovement();
-            MoveController.IsMovingEnabled = false;
-            return;
-        }
-
-        PlayerModel.EnableMovement();
-        MoveController.IsMovingEnabled = true;
+        var isEnabled = PlayerModel.IsMovementEnabled() &&
+            PhoneModel.IsTypingEnabled() == false;
+        MoveController.IsMovingEnabled = isEnabled;
     }
 
     private void UpdateLife()
@@ -41,6 +35,14 @@ public class LostPlayerController : MonoBehaviour
             MoveController.enabled = false;
             Body.freezeRotation = false;
             enabled = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Exit"))
+        {
+            PlayerModel.SetWon();
         }
     }
 }

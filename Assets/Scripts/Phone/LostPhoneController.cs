@@ -16,11 +16,16 @@ public class LostPhoneController : MonoBehaviour
     {
         MessageBuffer = new List<PhoneMessage>();
 
-        PhoneModel.AddToMessagesBuffer(new PhoneMessage
+        UIView.DialogueBoxElement.AddMessage(new PhoneMessage
         {
             SenderType = SenderType.Operator,
             Message = Settings.LostIntroductionMessage
-        }) ;
+        });
+        UIView.DialogueBoxElement.AddMessage(new PhoneMessage
+        {
+            SenderType = SenderType.Operator,
+            Message = "What is your emergency?"
+        });
     }
 
     private void Update()
@@ -178,6 +183,8 @@ public class LostPhoneController : MonoBehaviour
             PhoneModel.ToggleTypingEnabled();
             UpdateMessageLabels();
         }
+
+        UIView.MessageBoxElement.Activate();
     }
 
     private float GetBatteryDrain(string text)
@@ -236,14 +243,20 @@ public class LostPhoneController : MonoBehaviour
 
         if (PhoneModel.IsFlashOn)
         {
-            PhoneModel.SetBatteryLevel(PhoneModel.GetBatteryLevel() - Settings.FlashLightBatteryDrain * Time.deltaTime);
+            if (PhoneModel.IsControlEnabled())
+            {
+                PhoneModel.SetBatteryLevel(PhoneModel.GetBatteryLevel() - Settings.FlashLightBatteryDrain * Time.deltaTime);
+            }
         }
 
     }
 
     private void UpdateBattery()
     {
-        PhoneModel.SetBatteryLevel(PhoneModel.GetBatteryLevel() - Settings.PassiveBatteryDrain * Time.deltaTime);
+        if (PhoneModel.IsControlEnabled())
+        {
+            PhoneModel.SetBatteryLevel(PhoneModel.GetBatteryLevel() - Settings.PassiveBatteryDrain * Time.deltaTime);
+        }
 
         if (PhoneModel.GetBatteryLevel() > 0)
         {

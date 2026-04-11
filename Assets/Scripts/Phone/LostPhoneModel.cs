@@ -18,6 +18,16 @@ public class LostPhoneModel : MonoBehaviour
         Data.IsPhoneOn = false;
     }
 
+    public bool IsPhoneOn()
+    {
+        return Data.IsPhoneOn;
+    }
+
+    public void EnableControl()
+    {
+        Data.IsControlEnabled = true;
+    }
+
     public void DisableControl()
     {
         Data.IsControlEnabled = false;

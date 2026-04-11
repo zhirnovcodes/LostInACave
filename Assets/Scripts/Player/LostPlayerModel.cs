@@ -14,6 +14,11 @@ public class LostPlayerModel : MonoBehaviour
         return Data.IsAlive;
     }
 
+    public bool IsMovementEnabled()
+    {
+        return Data.IsMovingEnabled;
+    }
+
     public void EnableMovement()
     {
         Data.IsMovingEnabled = true;
@@ -22,5 +27,15 @@ public class LostPlayerModel : MonoBehaviour
     public void DisableMovement()
     {
         Data.IsMovingEnabled = false;
+    }
+
+    public void SetWon()
+    {
+        Data.HasWon = true;
+    }
+
+    public bool HasWon()
+    {
+        return Data.HasWon;
     }
 }
