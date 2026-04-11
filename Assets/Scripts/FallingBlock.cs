@@ -13,6 +13,7 @@ public class FallingBlock : MonoBehaviour
     public void StartFall()
     {
         StartCoroutine(Fall());
+        StartCoroutine(Earthquake());
     }
 
     private IEnumerator Fall()
@@ -32,6 +33,30 @@ public class FallingBlock : MonoBehaviour
 
         Block.localPosition = endPosition;
         IsFalling = false;
+    }
+
+    private IEnumerator Earthquake()
+    {
+        float halfTime = EarthQuakeTime * 0.5f;
+        float elapsed = 0f;
+
+        while (elapsed < halfTime)
+        {
+            elapsed += Time.deltaTime;
+            CameraShake.Instance.Power = Mathf.Lerp(0f, 1f, elapsed / halfTime);
+            yield return null;
+        }
+
+        elapsed = 0f;
+
+        while (elapsed < halfTime)
+        {
+            elapsed += Time.deltaTime;
+            CameraShake.Instance.Power = Mathf.Lerp(1f, 0f, elapsed / halfTime);
+            yield return null;
+        }
+
+        CameraShake.Instance.Power = 0f;
     }
 
     private void OnCollisionEnter(Collision collision)

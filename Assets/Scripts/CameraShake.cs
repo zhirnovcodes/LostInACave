@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class CameraShake : MonoBehaviour
 {
+    public static CameraShake Instance { get; private set; }
+
     [Header("Shake Settings")]
     [Range(0f, 1f)]
     public float Power = 0.5f;
@@ -16,6 +18,8 @@ public class CameraShake : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         OriginPosition = transform.localPosition;
         OriginRotation = transform.localRotation;
 
