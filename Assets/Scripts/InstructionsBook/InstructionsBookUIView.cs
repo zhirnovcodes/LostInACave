@@ -9,4 +9,5 @@ public class InstructionsBookUIView : MonoBehaviour
     public Button[] Buttons;
     public Button CloseButton;
     public TextMeshProUGUI CurrentIndexText;
+    public TextMeshProUGUI Page1Text;
 }
