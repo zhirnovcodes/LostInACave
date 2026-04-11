@@ -1562,10 +1562,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec10eee1b47d93146bb0272e037594c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OperatorPhoneController
-  UIView: {fileID: 0}
-  Settings: {fileID: 0}
+  UIView: {fileID: 427038060990824763}
+  Settings: {fileID: 11400000, guid: f94bb9d023675f243adf8999b88e45bf, type: 2}
   NetModel: {fileID: 0}
-  PhoneModel: {fileID: 0}
+  PhoneModel: {fileID: 8401856209646575193}
 --- !u!114 &8401856209646575193
 MonoBehaviour:
   m_ObjectHideFlags: 0
