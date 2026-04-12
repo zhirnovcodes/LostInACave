@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 
 public class NetworkBridge : MonoBehaviour
 {
+    public static NetworkBridge Instance;
+
     [Header("Server")]
     [SerializeField] private string ServerUrl = "ws://localhost:8080";
     [SerializeField] private string sessionId = "room1";
@@ -24,6 +26,7 @@ public class NetworkBridge : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        Instance = this;
     }
 
     public async void Connect()

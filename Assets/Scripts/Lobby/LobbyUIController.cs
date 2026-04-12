@@ -10,6 +10,8 @@ public class LobbyUIController : MonoBehaviour
 
     private void Awake()
     {
+        Application.runInBackground = true ;
+
         UIView.WaitingLabel.SetActive(false);
         UIView.SelectButtonsGroup.SetActive(false);
         UIView.ErrorLabel.SetActive(false);

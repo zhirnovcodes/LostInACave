@@ -10,10 +10,11 @@ public class OperatorGameController : MonoBehaviour
     public OperatorHUDView HUDView;
 
     private int Stage;
+    private bool IsInitialized;
 
     private void Awake()
     {
-        NetModel.SendConnected();
+        NetModel.SendSceneStarted();
         OverlayUIView.Content.SetActive(true);
         OverlayUIView.ShowWaiting();
         PhoneModel.DisableControl();
@@ -23,7 +24,7 @@ public class OperatorGameController : MonoBehaviour
 
     private void Update()
     {
-        if (NetModel.HasOpponentConnected())
+        if (NetModel.HasOpponentSceneStarted())
         {
             OverlayUIView.Content.SetActive(false);
             PhoneModel.EnableControl();
@@ -33,6 +34,7 @@ public class OperatorGameController : MonoBehaviour
             OverlayUIView.Content.SetActive(true);
             OverlayUIView.ShowWaiting();
             PhoneModel.DisableControl();
+            return;
         }
 
         if (NetModel.IsDeadReceived())

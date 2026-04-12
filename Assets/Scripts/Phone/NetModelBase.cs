@@ -3,8 +3,8 @@ using UnityEngine;
 
 public abstract class NetModelBase : MonoBehaviour
 {
-    public abstract void SendConnected();
-    public abstract bool HasOpponentConnected();
+    public abstract void SendSceneStarted();
+    public abstract bool HasOpponentSceneStarted();
 
     public abstract void SendMessage(PhoneMessage message);
 

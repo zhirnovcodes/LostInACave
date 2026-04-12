@@ -12,7 +12,7 @@ public class LostGameController : MonoBehaviour
 
     private void Awake()
     {
-        NetModel.SendConnected();
+        NetModel.SendSceneStarted();
         OverlayUIView.Content.SetActive(true);
         OverlayUIView.ShowWaiting();
         PhoneModel.DisableControl();
@@ -21,7 +21,7 @@ public class LostGameController : MonoBehaviour
 
     private void Update()
     {
-        if (NetModel.HasOpponentConnected())
+        if (NetModel.HasOpponentSceneStarted())
         {
             OverlayUIView.Content.SetActive(false);
             PhoneModel.EnableControl();
@@ -33,6 +33,7 @@ public class LostGameController : MonoBehaviour
             OverlayUIView.ShowWaiting();
             PhoneModel.DisableControl();
             PlayerModel.DisableMovement();
+            return;
         }
 
         if (PlayerModel.IsAlive() == false)

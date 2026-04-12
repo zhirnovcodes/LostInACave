@@ -31,12 +31,12 @@ public class MockNetModel : NetModelBase
         PendingMessages.Add(message);
     }
 
-    public override void SendConnected()
+    public override void SendSceneStarted()
     {
         Debug.Log("[MockNetModel] SendConnected");
     }
 
-    public override bool HasOpponentConnected()
+    public override bool HasOpponentSceneStarted()
     {
         return IsConnected;
     }
