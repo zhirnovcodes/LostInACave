@@ -2374,7 +2374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3f882bac9e49541b3192f55ea29fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkBridge
-  ServerUrl: ws://localhost:8080
+  ServerUrl: wss://lost-in-a-cave-server-production.up.railway.app
   sessionId: room1
 --- !u!4 &1793930825
 Transform:
