@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df3c5451bb9bd347921e15522de6eaa, type: 3}
   m_Name: PhoneSettings
   m_EditorClassIdentifier: Assembly-CSharp::PhoneSettings
-  PassiveBatteryDrain: 20
-  FlashLightBatteryDrain: 1
+  PassiveBatteryDrain: 0.3
+  FlashLightBatteryDrain: 0.7
   MessageSendBatteryDrain: 1
   MessageRecievedBatteryDrain: 1
-  MessagePerSymbolDrain: 0.1
+  MessagePerSymbolDrain: 0.2
   MessageSendInterval: 1
   WriteNewMessageKey: 27
   SendMessageKey: 2
   QuitWritingKey: 60
   FlashlightKey: 20
   LostIntroductionMessage: WASD - walk; M - text; Enter - send message; Up and down
-    to read messages
+    to read messages; F - flashlight
   OperatorIntroductionMessage: + and - zoom map; WASD - search map; M - text, Enter
     - send message; Up and down - read messages

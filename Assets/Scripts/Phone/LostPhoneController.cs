@@ -263,6 +263,8 @@ public class LostPhoneController : MonoBehaviour
             return;
         }
 
+        UIView.BatteryElement.SetLevel(0);
+
         PhoneModel.TurnOff();
 
         if (PhoneModel.IsFlashOn)
@@ -273,7 +275,8 @@ public class LostPhoneController : MonoBehaviour
         SceneView.FlashLight.SetActive(false);
         SceneView.ScreenLight.SetActive(false);
         UIView.MessageBoxElement.SetTypingDisabled();
-        UIView.Content.SetActive(false);
+        PhoneModel.DisableControl();
+        //UIView.Content.SetActive(false);
         enabled = false;
     }
 
