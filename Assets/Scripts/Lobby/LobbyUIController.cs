@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class LobbyUIController : MonoBehaviour
 {
-    public LobbyNetModelBase NetModel;
     public LobbyUIView UIView;
     public GameSceneManager SceneManager;
 
@@ -10,7 +9,7 @@ public class LobbyUIController : MonoBehaviour
 
     private void Awake()
     {
-        Application.runInBackground = true ;
+        Application.runInBackground = true;
 
         UIView.WaitingLabel.SetActive(false);
         UIView.SelectButtonsGroup.SetActive(false);
@@ -36,7 +35,7 @@ public class LobbyUIController : MonoBehaviour
 
     private void Update()
     {
-        var isConnected = NetModel.HasConnected(out var connectionResult);
+        var isConnected = NetModelBase.Instance.HasConnected(out var connectionResult);
 
         if (isConnected == false)
         {
@@ -53,7 +52,7 @@ public class LobbyUIController : MonoBehaviour
 
         if (connectionResult.IsConnectedFirst)
         {
-            if (NetModel.HasOpponentConnected())
+            if (NetModelBase.Instance.HasOpponentConnected())
             {
                 UIView.WaitingLabel.SetActive(false);
                 UIView.SelectButtonsGroup.SetActive(true);
@@ -71,13 +70,13 @@ public class LobbyUIController : MonoBehaviour
 
             if (HasConnectedSent == false)
             {
-                NetModel.SendConnected();
+                NetModelBase.Instance.SendConnected();
                 HasConnectedSent = true;
             }
 
-            if (NetModel.IsCharacterSelected())
+            if (NetModelBase.Instance.IsCharacterSelected())
             {
-                var otherCharacter = NetModel.HasSelected() == CharacterType.Lost
+                var otherCharacter = NetModelBase.Instance.HasSelected() == CharacterType.Lost
                     ? CharacterType.Operator
                     : CharacterType.Lost;
 
@@ -90,18 +89,18 @@ public class LobbyUIController : MonoBehaviour
     {
         UIView.WaitingLabel.SetActive(true);
         UIView.ConnectGroup.SetActive(false);
-        NetModel.Connect();
+        NetModelBase.Instance.Connect();
     }
 
     private void OnPlayLostPressed()
     {
-        NetModel.SelectCharacter(CharacterType.Lost);
+        NetModelBase.Instance.SelectCharacter(CharacterType.Lost);
         SceneManager.OpenScene(CharacterType.Lost);
     }
 
     private void OnPlayOperatorPressed()
     {
-        NetModel.SelectCharacter(CharacterType.Operator);
+        NetModelBase.Instance.SelectCharacter(CharacterType.Operator);
         SceneManager.OpenScene(CharacterType.Operator);
     }
 }

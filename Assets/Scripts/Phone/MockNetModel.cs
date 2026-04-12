@@ -3,9 +3,20 @@ using UnityEngine;
 
 public class MockNetModel : NetModelBase
 {
-    public bool IsConnected;
+    // --- Phone / Game Scene ---
+
+    public bool SceneStarted;
     public bool IsDead;
     public bool IsWon;
+
+    // --- Lobby ---
+
+    public bool IsConnected;
+    public bool IsOpponentConnected;
+    public bool IsSuccess;
+    public bool ConnectedFirst;
+    public bool SelectedCharacter;
+    public CharacterType Character;
 
     private static readonly string[] SampleTexts =
     {
@@ -21,24 +32,31 @@ public class MockNetModel : NetModelBase
 
     private List<PhoneMessage> PendingMessages = new List<PhoneMessage>();
 
+    private void Awake()
+    {
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void QueueRandomMessage()
     {
-        PhoneMessage message = new PhoneMessage
+        PendingMessages.Add(new PhoneMessage
         {
             SenderType = SenderType.Operator,
             Message = SampleTexts[Random.Range(0, SampleTexts.Length)],
-        };
-        PendingMessages.Add(message);
+        });
     }
+
+    // --- Phone / Game Scene ---
 
     public override void SendSceneStarted()
     {
-        Debug.Log("[MockNetModel] SendConnected");
+        Debug.Log("[MockNetModel] SendSceneStarted");
     }
 
     public override bool HasOpponentSceneStarted()
     {
-        return IsConnected;
+        return SceneStarted;
     }
 
     public override void SendMessage(PhoneMessage message)
@@ -80,5 +98,48 @@ public class MockNetModel : NetModelBase
     public override bool IsWonReceived()
     {
         return IsWon;
+    }
+
+    // --- Lobby ---
+
+    public override void Connect()
+    {
+        Debug.Log("[MockNetModel] Connect");
+    }
+
+    public override bool HasConnected(out ConnectionResultData data)
+    {
+        data = new ConnectionResultData
+        {
+            IsSuccess = IsSuccess,
+            IsConnectedFirst = ConnectedFirst,
+        };
+        return IsConnected;
+    }
+
+    public override void SelectCharacter(CharacterType character)
+    {
+        Character = character;
+        SelectedCharacter = true;
+    }
+
+    public override bool IsCharacterSelected()
+    {
+        return SelectedCharacter;
+    }
+
+    public override CharacterType HasSelected()
+    {
+        return Character;
+    }
+
+    public override bool HasOpponentConnected()
+    {
+        return IsOpponentConnected;
+    }
+
+    public override void SendConnected()
+    {
+        Debug.Log("[MockNetModel] SendConnected");
     }
 }

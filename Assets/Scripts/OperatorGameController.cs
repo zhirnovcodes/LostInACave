@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class OperatorGameController : MonoBehaviour
 {
-    public NetModelBase NetModel;
     public OperatorPhoneController PhoneController;
     public OperatorPhoneModel PhoneModel;
     public OperatorOverlayUIView OverlayUIView;
@@ -14,7 +13,7 @@ public class OperatorGameController : MonoBehaviour
 
     private void Awake()
     {
-        NetModel.SendSceneStarted();
+        NetModelBase.Instance.SendSceneStarted();
         OverlayUIView.Content.SetActive(true);
         OverlayUIView.ShowWaiting();
         PhoneModel.DisableControl();
@@ -24,7 +23,7 @@ public class OperatorGameController : MonoBehaviour
 
     private void Update()
     {
-        if (NetModel.HasOpponentSceneStarted())
+        if (NetModelBase.Instance.HasOpponentSceneStarted())
         {
             OverlayUIView.Content.SetActive(false);
             PhoneModel.EnableControl();
@@ -37,7 +36,7 @@ public class OperatorGameController : MonoBehaviour
             return;
         }
 
-        if (NetModel.IsDeadReceived())
+        if (NetModelBase.Instance.IsDeadReceived())
         {
             PhoneController.enabled = false;
             this.enabled = false;
@@ -46,7 +45,7 @@ public class OperatorGameController : MonoBehaviour
             return;
         }
 
-        if (NetModel.IsWonReceived())
+        if (NetModelBase.Instance.IsWonReceived())
         {
             PhoneController.enabled = false;
             this.enabled = false;

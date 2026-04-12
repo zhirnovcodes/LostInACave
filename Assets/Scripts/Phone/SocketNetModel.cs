@@ -4,29 +4,38 @@ using UnityEngine;
 
 public class SocketNetModel : NetModelBase
 {
-    public NetworkBridge Bridge;
+    // --- Phone / Game Scene ---
 
     private bool OpponentSceneStarted;
-
     private List<PhoneMessage> PendingMessages = new List<PhoneMessage>();
-
     private bool DeadReceived;
     private bool WonReceived;
 
+    // --- Lobby ---
+
+    private bool HasReceivedResponse;
+    private ConnectionResultData ConnectionResult;
+    private bool OpponentConnected;
+    private bool OpponentHasSelected;
+    private CharacterType OpponentCharacter;
+
     private void Awake()
     {
-        GetBridge().OnMessageReceived += OnMessageReceived;
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    private NetworkBridge GetBridge()
+    private void Start()
     {
-        return Bridge ?? NetworkBridge.Instance;
+        NetworkBridge.Instance.OnMessageReceived += OnMessageReceived;
     }
+
+    // --- Phone / Game Scene ---
 
     public override void SendSceneStarted()
     {
         var payload = NetworkHelpers.FromSceneStarted(new NetworkHelpers.SceneStartedNetMessage());
-        GetBridge().SendMessage(JObject.Parse(payload));
+        NetworkBridge.Instance.SendMessage(JObject.Parse(payload));
     }
 
     public override bool HasOpponentSceneStarted()
@@ -42,7 +51,7 @@ public class SocketNetModel : NetModelBase
             Message = message.Message
         });
 
-        GetBridge().SendMessage(JObject.Parse(payload));
+        NetworkBridge.Instance.SendMessage(JObject.Parse(payload));
     }
 
     public override bool ReceivedMessages(List<PhoneMessage> messages)
@@ -68,7 +77,7 @@ public class SocketNetModel : NetModelBase
             State = NetworkHelpers.LostGameState.IsDead
         });
 
-        GetBridge().SendMessage(JObject.Parse(payload));
+        NetworkBridge.Instance.SendMessage(JObject.Parse(payload));
     }
 
     public override bool IsDeadReceived()
@@ -83,12 +92,68 @@ public class SocketNetModel : NetModelBase
             State = NetworkHelpers.LostGameState.IsWon
         });
 
-        GetBridge().SendMessage(JObject.Parse(payload));
+        NetworkBridge.Instance.SendMessage(JObject.Parse(payload));
     }
 
     public override bool IsWonReceived()
     {
         return WonReceived;
+    }
+
+    // --- Lobby ---
+
+    public override void Connect()
+    {
+        NetworkBridge.Instance.OnConnectResponse += OnConnectResponse;
+        NetworkBridge.Instance.Connect();
+    }
+
+    public override bool HasConnected(out ConnectionResultData result)
+    {
+        result = ConnectionResult;
+        return HasReceivedResponse;
+    }
+
+    public override void SelectCharacter(CharacterType character)
+    {
+        Debug.Log($"[SocketNetModel] Selecting character: {character}");
+        var payload = NetworkHelpers.FromCharacterSelected(new NetworkHelpers.CharacterSelectedNetMessage
+        {
+            Type = character
+        });
+
+        NetworkBridge.Instance.SendMessage(JObject.Parse(payload));
+    }
+
+    public override bool IsCharacterSelected()
+    {
+        return OpponentHasSelected;
+    }
+
+    public override CharacterType HasSelected()
+    {
+        return OpponentCharacter;
+    }
+
+    public override bool HasOpponentConnected()
+    {
+        return OpponentConnected;
+    }
+
+    public override void SendConnected()
+    {
+        var payload = NetworkHelpers.FromConnected(new NetworkHelpers.ConnectedNetMessage());
+        NetworkBridge.Instance.SendMessage(JObject.Parse(payload));
+    }
+
+    private void OnConnectResponse(bool isSuccess, bool isConnectedFirst)
+    {
+        ConnectionResult = new ConnectionResultData
+        {
+            IsSuccess = isSuccess,
+            IsConnectedFirst = isConnectedFirst,
+        };
+        HasReceivedResponse = true;
     }
 
     private void OnMessageReceived(string rawJson)
@@ -121,6 +186,18 @@ public class SocketNetModel : NetModelBase
             {
                 WonReceived = true;
             }
+        }
+
+        if (messageType == NetworkHelpers.MessageType.CharacterSelected)
+        {
+            var netMessage = NetworkHelpers.ToCharacterSelected(content);
+            OpponentCharacter = netMessage.Type;
+            OpponentHasSelected = true;
+        }
+
+        if (messageType == NetworkHelpers.MessageType.Connected)
+        {
+            OpponentConnected = true;
         }
     }
 }

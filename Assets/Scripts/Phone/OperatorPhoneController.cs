@@ -6,7 +6,6 @@ public class OperatorPhoneController : MonoBehaviour
 {
     public OperatorPhoneUIView UIView;
     public PhoneSettings Settings;
-    public NetModelBase NetModel;
     public OperatorPhoneModel PhoneModel;
 
     private List<PhoneMessage> MessageBuffer;
@@ -40,7 +39,7 @@ public class OperatorPhoneController : MonoBehaviour
 
     private void UpdateMessages()
     {
-        if (NetModel.ReceivedMessages(MessageBuffer))
+        if (NetModelBase.Instance.ReceivedMessages(MessageBuffer))
         {
             foreach (PhoneMessage message in MessageBuffer)
             {
@@ -100,7 +99,7 @@ public class OperatorPhoneController : MonoBehaviour
             string text = UIView.MessageBoxElement.GetText();
             var message = new PhoneMessage { SenderType = SenderType.Operator, Message = text };
 
-            NetModel.SendMessage(message);
+            NetModelBase.Instance.SendMessage(message);
             PhoneModel.RecordMessageSent();
 
             UIView.MessageBoxElement.Clear();

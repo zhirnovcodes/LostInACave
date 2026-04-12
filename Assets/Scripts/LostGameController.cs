@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class LostGameController : MonoBehaviour
 {
-    public NetModelBase NetModel;
     public OperatorOverlayUIView OverlayUIView;
     public LostPlayerModel PlayerModel;
     public LostPhoneModel PhoneModel;
@@ -12,7 +11,7 @@ public class LostGameController : MonoBehaviour
 
     private void Awake()
     {
-        NetModel.SendSceneStarted();
+        NetModelBase.Instance.SendSceneStarted();
         OverlayUIView.Content.SetActive(true);
         OverlayUIView.ShowWaiting();
         PhoneModel.DisableControl();
@@ -21,7 +20,7 @@ public class LostGameController : MonoBehaviour
 
     private void Update()
     {
-        if (NetModel.HasOpponentSceneStarted())
+        if (NetModelBase.Instance.HasOpponentSceneStarted())
         {
             OverlayUIView.Content.SetActive(false);
             PhoneModel.EnableControl();
@@ -38,7 +37,7 @@ public class LostGameController : MonoBehaviour
 
         if (PlayerModel.IsAlive() == false)
         {
-            NetModel.SendDead();
+            NetModelBase.Instance.SendDead();
             OverlayUIView.Content.SetActive(true);
             OverlayUIView.ShowGameOver();
             PhoneModel.DisableControl();
@@ -50,7 +49,7 @@ public class LostGameController : MonoBehaviour
 
         if (PlayerModel.HasWon())
         {
-            NetModel.SendWon();
+            NetModelBase.Instance.SendWon();
             OverlayUIView.Content.SetActive(true);
             OverlayUIView.ShowVictory();
             PhoneModel.DisableControl();

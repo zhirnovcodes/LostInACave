@@ -7,7 +7,6 @@ public class LostPhoneController : MonoBehaviour
     public LostPhoneUIView UIView;
     public LostPhoneSceneView SceneView;
     public PhoneSettings Settings;
-    public NetModelBase NetModel;
     public LostPhoneModel PhoneModel;
 
     private List<PhoneMessage> MessageBuffer;
@@ -78,7 +77,7 @@ public class LostPhoneController : MonoBehaviour
 
         float drain = 0;
 
-        if (NetModel.ReceivedMessages(MessageBuffer))
+        if (NetModelBase.Instance.ReceivedMessages(MessageBuffer))
         {
             drain += Settings.MessageRecievedBatteryDrain;
 
@@ -165,7 +164,7 @@ public class LostPhoneController : MonoBehaviour
                 
                 var message = new PhoneMessage { SenderType = SenderType.Lost, Message = text };
                 
-                NetModel.SendMessage(message);
+                NetModelBase.Instance.SendMessage(message);
                 
                 PhoneModel.RecordMessageSent();
                 

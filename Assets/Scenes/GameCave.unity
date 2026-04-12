@@ -20158,7 +20158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238292024f5844f4fbe7470b7402f049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LostGameController
-  NetModel: {fileID: 1671221998}
   OverlayUIView: {fileID: 1528566484}
   PlayerModel: {fileID: 696044928}
   PhoneModel: {fileID: 1450715127}
@@ -25842,7 +25841,6 @@ MonoBehaviour:
   UIView: {fileID: 1117109523}
   SceneView: {fileID: 1450715128}
   Settings: {fileID: 11400000, guid: f94bb9d023675f243adf8999b88e45bf, type: 2}
-  NetModel: {fileID: 1671221998}
   PhoneModel: {fileID: 1450715127}
 --- !u!1001 &1469953134
 PrefabInstance:
@@ -29890,8 +29888,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1671221997}
-  - component: {fileID: 1671221998}
-  - component: {fileID: 1671221999}
   m_Layer: 0
   m_Name: Net
   m_TagString: Untagged
@@ -29914,34 +29910,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1671221998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671221995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27323236aa2b6714fae0b0705d20f86c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SocketNetModel
-  Bridge: {fileID: 0}
---- !u!114 &1671221999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671221995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b70541d815a52bf4185b4d968280d893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MockNetModel
-  IsConnected: 0
-  IsDead: 0
-  IsWon: 0
 --- !u!1 &1671723375
 GameObject:
   m_ObjectHideFlags: 0

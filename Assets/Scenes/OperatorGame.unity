@@ -2975,7 +2975,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 674439779}
-  - component: {fileID: 674439780}
   m_Layer: 0
   m_Name: Net
   m_TagString: Untagged
@@ -2998,19 +2997,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &674439780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 674439777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27323236aa2b6714fae0b0705d20f86c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SocketNetModel
-  Bridge: {fileID: 0}
 --- !u!1 &768636937
 GameObject:
   m_ObjectHideFlags: 0
@@ -5379,7 +5365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8323615582be0124f9ef7c6983293895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OperatorGameController
-  NetModel: {fileID: 674439780}
   PhoneController: {fileID: 920805113}
   PhoneModel: {fileID: 920805112}
   OverlayUIView: {fileID: 1639877553}
@@ -5869,7 +5854,7 @@ PrefabInstance:
     - target: {fileID: 6212374202449806326, guid: 8a4b9e9bdd2109549abb82d2013ba7bc, type: 3}
       propertyPath: NetModel
       value: 
-      objectReference: {fileID: 674439780}
+      objectReference: {fileID: 0}
     - target: {fileID: 8401856209646575193, guid: 8a4b9e9bdd2109549abb82d2013ba7bc, type: 3}
       propertyPath: Data.HasUnreadMessages
       value: 1
