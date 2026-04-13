@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PhoneSettings
   m_EditorClassIdentifier: Assembly-CSharp::PhoneSettings
   PassiveBatteryDrain: 0.3
-  FlashLightBatteryDrain: 0.7
-  MessageSendBatteryDrain: 1
-  MessageRecievedBatteryDrain: 1
-  MessagePerSymbolDrain: 0.2
+  FlashLightBatteryDrain: 1
+  MessageSendBatteryDrain: 0.5
+  MessageRecievedBatteryDrain: 0.5
+  MessagePerSymbolDrain: 0.1
   MessageSendInterval: 1
   WriteNewMessageKey: 27
   SendMessageKey: 2
@@ -24,5 +24,5 @@ MonoBehaviour:
   FlashlightKey: 20
   LostIntroductionMessage: WASD - walk; M - text; Enter - send message; Up and down
     to read messages; F - flashlight
-  OperatorIntroductionMessage: + and - zoom map; WASD - search map; M - text, Enter
-    - send message; Up and down - read messages
+  OperatorIntroductionMessage: + and - zoom map; M - text, Enter - send message;
+    Up and down - read messages

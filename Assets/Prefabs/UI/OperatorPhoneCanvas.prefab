@@ -113,7 +113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 266, y: 2.2946}
+  m_AnchoredPosition: {x: 266, y: 2.2945862}
   m_SizeDelta: {x: 55.3821, y: -41.890015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &552523497545605832
@@ -432,8 +432,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -706,8 +706,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1286,8 +1286,8 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
   m_RegexValue: 
-  m_GlobalPointSize: 50
-  m_CharacterLimit: 128
+  m_GlobalPointSize: 40
+  m_CharacterLimit: 100
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -1564,7 +1564,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OperatorPhoneController
   UIView: {fileID: 427038060990824763}
   Settings: {fileID: 11400000, guid: f94bb9d023675f243adf8999b88e45bf, type: 2}
-  NetModel: {fileID: 0}
   PhoneModel: {fileID: 8401856209646575193}
 --- !u!114 &8401856209646575193
 MonoBehaviour:
@@ -1635,8 +1634,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -241.011, y: -191.18112}
-  m_SizeDelta: {x: 604.114, y: 454.073}
+  m_AnchoredPosition: {x: -241.011, y: -223.8132}
+  m_SizeDelta: {x: 604.114, y: 462.4941}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6425056673050002238
 MonoBehaviour:
@@ -1831,8 +1830,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -2364,8 +2363,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3331,8 +3330,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.464, y: 192.37}
-  m_SizeDelta: {x: 602.651, y: 512.99}
+  m_AnchoredPosition: {x: -1.464, y: 175.52765}
+  m_SizeDelta: {x: 602.651, y: 557.9028}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1226100764896199554
 MonoBehaviour:

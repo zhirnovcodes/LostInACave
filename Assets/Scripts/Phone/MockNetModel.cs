@@ -34,8 +34,15 @@ public class MockNetModel : NetModelBase
 
     private void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     public void QueueRandomMessage()
